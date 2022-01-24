@@ -118,23 +118,6 @@ int main() {
     struct sockaddr saddr;
     int saddr_len = sizeof(saddr);
 
-   
-
-    /*int bufflen = recvfrom(socketfd, buffer, 65536, 0, &saddr, (socklen_t *)&saddr_len);
-    //int bufflen = recv(socketfd, buffer, 8192, 0);
-    if(bufflen < 0) {
-        printf("Error leyendo datos desde recvfrom: %d - %d", bufflen, buffer[0]);
-        printf("%s", GetLastErrorAsString());
-        close(socketfd);
-        WSACleanup();
-        free(buffer);
-        exit(-1);
-    }else{
-        printf("hola");
-    }
-
-    printf("Hola: %s", buffer[0]);*/
-
     while(1) {
 
         /*Limpiar el paquete cada que entre en el bucle para recibir*/
@@ -153,8 +136,8 @@ int main() {
 
         ip_header = (IPHEADER *) buffer;
 
-        if(ip_header->destip == inet_addr(thisIp))
-            continue;
+        //if(ip_header->destip == inet_addr(thisIp))
+        //    continue;
 
         if(LS_HI_PART(ip_header->ver_ihl) != 4) // Si no es ipv4
             continue; // Ignora el paquete
@@ -168,9 +151,9 @@ int main() {
         translate_ip(ip_header->srcip, ipSrc);
         translate_ip(ip_header->destip, ipDest);
 
-        printf("\n EXTRA Source IP: %s", ipSrc);
-        printf("\n EXTRA Destination IP: %s", ipDest);
-        printf("\n%d\n", ip_header->protocol);
+        //printf("\n EXTRA Source IP: %s", ipSrc);
+        //printf("\n EXTRA Destination IP: %s", ipDest);
+        //printf("\n%d\n", ip_header->protocol);
         
         switch(ip_header->protocol) {
             case 6:  // TCP case
